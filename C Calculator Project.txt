@@ -29,8 +29,8 @@ Project Structure
 bash
 Copy code
 C-Calculator/
-│── calculator.c   # Source code
-│── README.md      # Documentation
+│── calculator.c                   # Source code
+│── C Calculator Project.txt       # Documentation
 Example Run
 sql
 Copy code
