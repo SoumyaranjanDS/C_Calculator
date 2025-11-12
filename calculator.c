@@ -1,52 +1,79 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
 
 int main() {
-    float num1, num2, result;
-    char oper;
 
-    printf("Enter first number : ");
-    scanf("%f", &num1);
+    float num1, num2, result;    // store the two numbers and the result
+    char opr;                    // to store operator like + - * / %
+    char conf[10];               // to store "yes" or "no"
+    int choice = 0;              // flag variable for invalid input
 
-    printf("Enter second number : ");
-    scanf("%f", &num2);
+    strcpy(conf, "yes");         // start with yes so the loop runs first time
 
-    printf("Choose your operator +, -, *, /, %% : ");
-    scanf(" %c", &oper);
+    printf("---- Simple C Calculator ----\n");
 
-    int check = 1;
+    // loop continues as long as user types yes
+    while(strcmp(conf, "yes") == 0 || strcmp(conf, "YES") == 0) {
 
-    if(oper == '+') {
-        result = num1 + num2;
-    }
-    else if(oper == '-') {
-        result = num1 - num2;
-    }
-    else if(oper == '*') {
-        result = num1 * num2;
-    }
-    else if(oper == '/') {
-        if(num2 != 0) {
-        result = num1 / num2;
+        // take first number
+        printf("\nEnter first number : ");
+        scanf("%f", &num1);
+
+        // take second number
+        printf("Enter second number : ");
+        scanf("%f", &num2);
+
+        // take operator
+        printf("Enter operator (+, -, *, /, %%) : ");
+        scanf(" %c", &opr);   // space before %c to ignore newline
+
+        // reset choice for every new calculation
+        choice = 0;
+
+        // perform calculation based on operator
+        if(opr == '+') {
+            result = num1 + num2;
+        }
+        else if(opr == '-') {
+            result = num1 - num2;
+        }
+        else if(opr == '*') {
+            result = num1 * num2;
+        }
+        else if(opr == '/') {
+            if(num2 != 0) {
+                result = num1 / num2;
+            } else {
+                printf("Error: cannot divide by zero.\n");
+                choice = 1;
+            }
+        }
+        else if(opr == '%') {
+            if((int)num2 != 0) {
+                result = (int)num1 % (int)num2;
+            } else {
+                printf("Error: cannot take modulus by zero.\n");
+                choice = 1;
+            }
         }
         else {
-            printf("Division with 0 is not allowed");
-            check = 0;
+            printf("Invalid operator entered.\n");
+            choice = 1;
         }
-    }
-    else if(oper == '%'){
-        if(num2 != 0) {
-        result = (int)num1 % (int)num2;
+
+        // only print result if everything went fine
+        if(!choice) {
+            printf("Result = %.2f\n", result);
         }
-        else {
-            printf("Modulos with 0 is not allowed");
-            check = 0;
-        }
+
+        // ask again if user wants to continue
+        printf("\nDo you want to continue (yes / no) : ");
+        scanf("%s", conf);
     }
-    else {
-        printf("Enter a valid operator");
-    }
-    if(check != 0) {
-    printf("Result : %.2f", result);
-    }
+
+    // exit message
+    printf("\nThank you for using this calculator.\n");
+    printf("Program ended successfully.\n");
+
     return 0;
 }
